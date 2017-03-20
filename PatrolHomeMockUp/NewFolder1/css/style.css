@@ -1,0 +1,61 @@
+html body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto',sans-serif;
+    font-size: 14px;
+}
+
+md-toolbar h1 {
+    font-size: 1.250em;
+    font-weight: 400;
+    margin: auto;
+}
+
+md-toolbar .md-toolbar-tools h1 {
+    font-size: 1.250em;
+    font-weight: 400;
+}
+
+
+md-list .selected {
+    color: #0094ff;
+    background-color: #efefef;
+}
+
+md-sidenav md-list {
+    padding: 0px 0px 0px 0px;
+}
+
+#content {
+    /*padding-top: 5px; it is making the subheader padding from top*/
+}
+
+
+
+
+
+.checkboxdemoSyncing .checkboxDemo1 div {
+  clear: both; }
+
+.checkboxdemoSyncing legend {
+  color: #3F51B5; }
+
+.checkboxdemoSyncing legend code {
+  color: #3F51B5;
+  font-weight: normal; }
+
+.checkboxdemoSyncing p {
+  padding-left: 8px; }
+
+.checkboxdemoSyncing .info {
+  padding-left: 13px; }
+
+.checkboxdemoSyncing div.standard {
+  padding: 8px;
+  padding-left: 15px; }
+
+.checkboxdemoSyncing fieldset.standard {
+  border-style: solid;
+  border-width: 1px;
+  height: 100%; }

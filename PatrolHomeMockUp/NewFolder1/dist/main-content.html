@@ -1,0 +1,11 @@
+﻿<md-subheader ng-cloak md-whiteframe="1">{{vm.selected.Name}}</md-subheader>
+<md-content layout-padding>
+    <div ng-repeat="form in vm.selected.Forms" md-whiteframe="1" flex  style="padding:15px;margin-bottom:20px;background-color:#fff" >
+        <span class="md-title">{{form.Title}}</span>
+        <p>
+            {{form.Description}}
+        </p>
+        <md-button class="md-raised md-primary" ng-click="vm.navigateToForms(form)">Submit Request</md-button>
+    </div>
+
+</md-content>

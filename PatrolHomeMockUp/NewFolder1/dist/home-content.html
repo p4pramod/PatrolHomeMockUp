@@ -1,0 +1,119 @@
+﻿<md-subheader ng-cloak md-whiteframe="1">Foreign Travel Control</md-subheader>
+<md-content layout-padding>
+    <div md-whiteframe="1" flex style="padding:15px;margin-bottom:20px;background-color:#fff">
+        <!--<div flex="80">-->
+            <div layout-gt-sm="row" flex>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Travel Type</label>
+                    <md-select ng-model="vm.TravelType">
+                        <md-option ng-repeat="tTy in vm.TravelTypes" value="{{tTy.Value}}">
+                            {{tTy.Text}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <span flex-gt-sm="5"></span>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Travelling Via</label>
+                    <md-select ng-model="user.state">
+                        <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                            {{state.abbrev}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <span flex-gt-sm="25"></span>
+            </div>
+            <div flex flex-gt-sm="95" layout="column" style="padding-top:20px;padding-bottom:20px" class="checkboxdemoSyncing">
+                <fieldset class="standard">
+                    <legend>Hospitality Location</legend>
+                    <div layout="row" layout-wrap flex>
+                        <div flex="25" ng-repeat="item in vm.hospitalityLocation">
+                            <md-checkbox ng-checked="vm.exists(item, vm.selected)" ng-click="vm.toggle(item, vm.selected)">
+                                {{ item.Text }} <span ng-if="vm.exists(item, vm.selected)">selected</span>
+                            </md-checkbox>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div layout-gt-sm="row" layout="column" flex flex-gt-sm="95">
+                <md-input-container>
+                    <label>Start date</label>
+                    <md-datepicker ng-model="user.StartDate"></md-datepicker>
+                </md-input-container>
+                <span flex-gt-sm="5"></span>
+                <md-input-container>
+                    <label>End date</label>
+                    <md-datepicker ng-model="user.EndDateDate"></md-datepicker>
+                </md-input-container>
+                <span flex-gt-sm="5"></span>
+                <div class="md-body-2 labePadding">
+                    <span>No of Days : </span>
+                    <span>10 </span>
+                </div>
+                <span flex-gt-sm="5"></span>
+                <md-input-container class="md-block" flex-gt-sm="15">
+                    <label>Actual Number of Days</label>
+                    <input name="postalCode" ng-model="user.postalCode" />
+                </md-input-container>
+                <span flex-gt-sm></span>
+            </div>
+            <div layout-gt-sm="row" layout="column" flex>
+                <md-input-container flex-gt-sm="30" flex>
+                    <label>From Country</label>
+                    <md-select ng-model="user.state">
+                        <md-option ng-repeat="country in vm.Countries" value="{{country.Value}}">
+                            {{country.Text}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <span flex-gt-sm="5"></span>
+                <md-input-container flex-gt-sm="30" flex>
+                    <label>To Country</label>
+                    <md-select ng-model="user.state">
+                        <md-option ng-repeat="country in vm.Countries" value="{{country.Value}}">
+                            {{country.Text}}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+                        <div ng-message="required" class="my-message">You must supply a postal code.</div>
+                        <div ng-message="pattern" class="my-message">
+                            That doesn't look like a valid postal
+                            code.
+                        </div>
+                        <div ng-message="md-maxlength" class="my-message">
+                            Don't use the long version silly...we don't need to be that specific...
+                        </div>
+                    </div>
+                </md-input-container>
+                <span flex-gt-sm="5"></span>
+                <md-input-container flex-gt-sm="30" flex>
+                    <label>Travelling Via</label>
+                    <md-select ng-model="user.state">
+                        <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                            {{state.abbrev}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <!--<md-input-container class="md-block" flex-gt-sm>
+                    <label>Postal Code</label>
+                    <input name="postalCode" ng-model="user.postalCode" placeholder="12345"
+                           required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+
+                    <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+                        <div ng-message="required" class="my-message">You must supply a postal code.</div>
+                        <div ng-message="pattern" class="my-message">
+                            That doesn't look like a valid postal
+                            code.
+                        </div>
+                        <div ng-message="md-maxlength" class="my-message">
+                            Don't use the long version silly...we don't need to be that specific...
+                        </div>
+                    </div>
+                </md-input-container>-->
+            </div>
+        <!--</div>
+        <div flex="20" style="border:1px solid #000">
+            asdasd
+        </div>-->
+
+    </div>
+</md-content>

@@ -1,0 +1,29 @@
+﻿<md-sidenav class="md-sidenav-left"
+            md-component-id="left"
+            md-is-locked-open="$mdMedia('gt-sm')"
+            md-whiteframe="4">
+    <md-toolbar>
+        <h1>Form Categories</h1>
+    </md-toolbar>
+    <div layout-padding>
+        <md-autocomplete md-search-text="vm.searchText"
+                         md-items="item in vm.FormCategories | filter:vm.searchText"
+                         md-item-text="item.Name"
+                         md-min-length="3"
+                         placeholder="filter">
+            <md-item-template>
+                <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.Name}}</span>
+            </md-item-template>
+            <md-not-found>
+                No Forms Category Found..
+            </md-not-found>
+        </md-autocomplete>
+    </div>
+    <md-content>
+        <md-list>
+            <md-list-item ng-click="vm.showDetails(category)" ng-class="{'selected': category === vm.selected}" ng-repeat="category in vm.FormCategories | filter:vm.searchText | orderBy : 'Name'">
+                {{category.Name}}
+            </md-list-item>
+        </md-list>
+    </md-content>
+</md-sidenav>

@@ -1,0 +1,28 @@
+﻿<md-toolbar>
+    <div class="md-toolbar-tools">
+        <md-button hide-gt-sm ng-click="vm.tooleSideNav()" class="md-icon-button">
+            <md-icon md-svg-icon="navigation:menu"></md-icon>
+        </md-button>
+        <h1>Patrol</h1>
+        <span flex></span>
+        <md-button ng-click="vm.navigateToForms()" class="md-icon-button">
+            <md-tooltip md-direction="bottom">Home</md-tooltip>
+            <md-icon md-svg-icon="action:home"></md-icon>
+        </md-button>
+        <md-button ng-click="vm.navigateToHome()" class="md-icon-button">
+            <md-tooltip md-direction="bottom">My Complience Items</md-tooltip>
+            <md-icon md-svg-icon="action:assignment"></md-icon>
+        </md-button>
+        <md-button ng-click="vm.navigateToHome()" class="md-icon-button">
+            <md-tooltip md-direction="bottom">Notification</md-tooltip>
+            <md-icon md-svg-icon="social:notifications"></md-icon>
+        </md-button>
+        <md-button ng-click="vm.openBottomSheet()" class="md-icon-button">
+            <md-tooltip md-direction="bottom">Admin</md-tooltip>
+            <md-icon md-svg-icon="action:settings"></md-icon>
+        </md-button>
+        <md-button ng-click="vm.navigateToHome()" class="md-icon-button">
+            <md-icon md-svg-icon="../../Content/angular-material-icons/method-draw-image.svg"></md-icon>
+        </md-button>
+    </div>
+</md-toolbar>

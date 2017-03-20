@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Complience Items</title>
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">-->
+
+    <link href="../Content/angular-material.css" rel="stylesheet" />
+    <!--<link rel='stylesheet prefetch' href='https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css'>-->
+    
+    <link href="../Scripts/bower_components/angular-material-icons/angular-material-icons.css" rel="stylesheet" />
+
+    <link href="css/style.css?ee=1" rel="stylesheet" />
+        
+</head>
+<body layout="row" ng-app="BlankApp" ng-cloak  ng-controller="AppCtrl as vm">
+   <div ng-include="'dist/side_nav.html'" layout="vertical"></div>
+
+   <div flex layout="column" >
+        <div ng-include="'dist/toolbar-header.html'" layout="vertical"></div>
+        <md-content flex id="content">
+           <div ng-include="'dist/main-content.html'"></div>
+        </md-content>
+    </div>
+    <script src="../Scripts/angular/angular.min.js"></script>
+    <script src="../Scripts/angular-animate/angular-animate.js"></script>
+    <script src="../Scripts/angular-aria/angular-aria.js"></script>
+    <script src="../Scripts/angular-messages.min.js"></script>
+
+    <!-- Angular Material Library -->
+    <script src="../Scripts/angular-material/angular-material.min.js"></script>
+
+    <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/assets-cache.js'></script>
+    <!-- Your application bootstrap  -->
+
+    <script src="../Scripts/bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
+

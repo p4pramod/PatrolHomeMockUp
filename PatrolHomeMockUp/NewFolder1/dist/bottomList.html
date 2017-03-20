@@ -1,0 +1,11 @@
+﻿<md-bottom-sheet class="md-list md-has-header">
+    <md-subheader ng-cloak>Admin Actions</md-subheader>
+    <md-divider></md-divider>
+    <md-list ng-cloak>
+        <md-list-item ng-repeat="item in vm.AdminActions">
+            <md-button class="md-list-item-content">
+                <span class="md-inline-list-icon-label">{{ item.name }}</span>
+            </md-button>
+        </md-list-item>
+    </md-list>
+</md-bottom-sheet>

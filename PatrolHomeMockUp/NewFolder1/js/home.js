@@ -1,7 +1,9 @@
 ﻿var app;
 (function (app) {
     var HomeController = (function () {
-        function HomeController() {
+        function HomeController($http) {
+            this.$http = $http;
+            this.self = this;
             this.hospitalityLocation = [{ Text: "Text-1", Value: "Value-1" }, { Text: "Text-2", Value: "Value-2" }, { Text: "Text-3", Value: "Value-3" }];
             this.selected = [];
             this.toggle = function (item, list) {
@@ -13,6 +15,10 @@
                 }
             };
             this.TravelTypes = [{ Text: "Client Purpose", Value: 1212 }, { Text: "Client Purpose - Chaperone", Value: 11212 }];
+            this.filterSelected = true;
+            this.allContacts = this.loadContacts();
+            this.cancelSearch = angular.noop;
+            this.contacts = [this.allContacts[0]];
             this.Countries = [
                 { Text: "Afghanistan", Value: 1 },
                 { Text: "Albania", Value: 2 },
@@ -45,52 +51,126 @@
                 { Text: "Burkina Faso", Value: 1196 },
                 { Text: "Burma", Value: 11456 },
                 { Text: "Burundi", Value: 1132 },
-                { Text: "Cambodia", Value: 121 },
-                { Text: "Cameroon", Value: 1551 },
-                { Text: "Canada", Value: 4511 },
-                { Text: "Cabo Verde", Value: 14521 },
-                { Text: "Central African Republic", Value: 11234 },
-                { Text: "Chad", Value: 12342321 },
-                { Text: "Chile", Value: 12341 },
-                { Text: "China", Value: 123461 },
-                { Text: "Colombia", Value: 11345 },
-                { Text: "Comoros", Value: 11345 },
-                { Text: "Congo, Democratic Republic of the", Value: 1165 },
-                { Text: "Congo, Republic of the", Value: 23121 },
-                { Text: "Costa Rica", Value: 1112378 },
-                { Text: "Cote d'Ivoire", Value: 15731 },
-                { Text: "Croatia", Value: 1631 },
-                { Text: "Cuba", Value: 11 },
-                { Text: "Curacao", Value: 11 },
-                { Text: "Cyprus", Value: 11 },
-                { Text: "Czechia", Value: 11 },
-                { Text: "Denmark", Value: 11 },
-                { Text: "Djibouti", Value: 11 },
-                { Text: "Dominica", Value: 11 },
-                { Text: "Dominican Republic", Value: 11 },
-                { Text: "East Timor (see Timor- Leste)", Value: 11 },
-                { Text: "Ecuador", Value: 11 },
-                { Text: "Egypt", Value: 11 },
-                { Text: "El Salvador", Value: 11 },
-                { Text: "Equatorial Guinea", Value: 11 },
-                { Text: "Eritrea", Value: 11 },
-                { Text: "Estonia", Value: 11 },
-                { Text: "Ethiopia", Value: 11 },
-                { Text: "Gabon", Value: 11 },
-                { Text: "Gambia, The", Value: 11 },
-                { Text: "Georgia", Value: 11 },
-                { Text: "Germany", Value: 11 },
-                { Text: "Ghana", Value: 11 },
-                { Text: "Greece", Value: 11 },
-                { Text: "Grenada", Value: 11 },
-                { Text: "Guatemala", Value: 11 },
-                { Text: "Guinea", Value: 11 },
-                { Text: "Guinea - Bissau", Value: 11 },
-                { Text: "Guyana", Value: 11 }];
+                { Text: "Cambodia", Value: 121 }];
             this.exists = function (item, list) {
                 return list.indexOf(item) > -1;
             };
+            this.contactCache = [];
         }
+        HomeController.prototype.debounceSearch = function () {
+            var now = new Date().getMilliseconds();
+            this.lastSearch = this.lastSearch || now;
+
+            return ((now - this.lastSearch) < 300);
+        };
+
+        HomeController.prototype.delayedQuerySearch = function (query) {
+            var self = this;
+
+            var result;
+            if (query) {
+                result = this.loadAndParseContacts(query).then(function (data) {
+                    return data;
+                });
+            } else {
+                result = [];
+            }
+            return result;
+            //if (!this.pendingSearch || !this.debounceSearch()) {
+            //    this.cancelSearch();
+            //    return this.pendingSearch = this.$http.get("/contact.ashx?key=" + criteria).success(function (data) {
+            //        return data;
+            //    });
+            //        $q(function (resolve, reject) {
+            //        // Simulate async search... (after debouncing)
+            //        this.cancelSearch = reject;
+            //        $timeout(function () {
+            //            resolve(this.self.querySearch(criteria));
+            //            this.refreshDebounce();
+            //        }, Math.random() * 500, true)
+            //    });
+            //}
+            //return this.pendingSearch;
+        };
+
+        HomeController.prototype.getParse = function (self) {
+            function ee(data) {
+                return data.data.map(function (c, index) {
+                    var emailAddr = c.email;
+
+                    if (!!self.contactCache[emailAddr]) {
+                        return self.contactCache[emailAddr];
+                    } else {
+                        //var contact = {
+                        //    name: c.name,
+                        //    email: emailAddr,
+                        //    _lowername: '',
+                        //    image: 'http://lorempixel.com/50/50/people?' + index
+                        //};
+                        //contact._lowername = contact.name.toLowerCase();
+                        self.contactCache[emailAddr] = c;
+                        return c;
+                    }
+                });
+            }
+
+            return ee;
+        };
+
+        HomeController.prototype.loadAndParseContacts = function (query) {
+            return this.$http.get("/contact.ashx?Key=" + query).then(this.getParse(this));
+        };
+
+        //createFilterFor(query): any {
+        //    var lowercaseQuery = angular.lowercase(query);
+        //    return function filterFn(contact) {
+        //        return (contact._lowername.indexOf(lowercaseQuery) != -1);;
+        //    };
+        //}
+        HomeController.prototype.loadContacts = function () {
+            var contacts = [
+                'Marina Augustine',
+                'Oddr Sarno',
+                'Nick Giannopoulos',
+                'Narayana Garner',
+                'Anita Gros',
+                'Megan Smith',
+                'Tsvetko Metzger',
+                'Hector Simek',
+                'Some-guy withalongalastaname',
+                'Pramod Sharma'
+            ];
+
+            return contacts.map(function (c, index) {
+                var cParts = c.split(' ');
+                var email = cParts[0][0].toLowerCase() + '.' + cParts[1].toLowerCase() + '@example.com';
+                var hash = email;
+
+                var contact = {
+                    name: c,
+                    email: email,
+                    _lowername: '',
+                    image: '//www.gravatar.com/avatar/' + hash + '?s=50&d=retro'
+                };
+                contact._lowername = contact.name.toLowerCase();
+                return contact;
+            });
+        };
+
+        HomeController.prototype.querySearch = function (criteria) {
+            return criteria ? this.self.allContacts.filter(this.createFilterFor(criteria)) : [];
+        };
+
+        /**
+        * Create filter function for a query string
+        */
+        HomeController.prototype.createFilterFor = function (query) {
+            var lowercaseQuery = angular.lowercase(query);
+
+            return function filterFn(contact) {
+                return (contact._lowername.indexOf(lowercaseQuery) != -1);
+            };
+        };
         return HomeController;
     })();
     app.HomeController = HomeController;

@@ -12,21 +12,23 @@
                     </md-select>
                 </md-input-container>
                 <span flex-gt-sm="5"></span>
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label>Travelling Via</label>
-                    <md-select ng-model="user.state">
-                        <md-option ng-repeat="state in states" value="{{state.abbrev}}">
-                            {{state.abbrev}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
+                <md-contact-chips ng-model="vm.contacts" flex-gt-sm
+                                  md-contacts="vm.delayedQuerySearch($query)"
+                                  md-contact-name="name"
+                                  md-contact-image="image"
+                                  md-contact-email="email"
+                                  md-require-match="true"
+                                  md-highlight-flags="i"
+                                  filter-selected="vm.filterSelected"
+                                  placeholder="To">
+                </md-contact-chips>
                 <span flex-gt-sm="25"></span>
             </div>
             <div flex flex-gt-sm="95" layout="column" style="padding-top:20px;padding-bottom:20px" class="checkboxdemoSyncing">
                 <fieldset class="standard">
                     <legend>Hospitality Location</legend>
-                    <div layout="row" layout-wrap flex>
-                        <div flex="25" ng-repeat="item in vm.hospitalityLocation">
+                    <div layout-wrap layout-gt-sm="row">
+                        <div flex-gt-sm="33" ng-repeat="item in vm.hospitalityLocation">
                             <md-checkbox ng-checked="vm.exists(item, vm.selected)" ng-click="vm.toggle(item, vm.selected)">
                                 {{ item.Text }} <span ng-if="vm.exists(item, vm.selected)">selected</span>
                             </md-checkbox>
@@ -117,3 +119,4 @@
 
     </div>
 </md-content>
+{{vm.querySearch("Pramod")}}
